@@ -1,0 +1,3 @@
+[submodule "PeerlessEngine"]
+	path = PeerlessEngine
+	url = git://github.com/Keristero/PeerlessEngine.git

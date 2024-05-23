@@ -12,10 +12,10 @@ import { add_parent } from '../../PeerlessEngine/utilities/node_helpers.mjs'
 
 class MainMenuScene {
     constructor() {
-        this.world
     }
     init() {
         this.world = createWorld()
+        this.world.frame = 0
         //tools
         let mouse_cursor_eid = create_mouse_cursor(this.world)
         //arrange basic menu
@@ -60,6 +60,7 @@ class MainMenuScene {
         mouse_system(this.world)
         clickable_system(this.world)
         controller_system(this.world)
+        this.world.frame++
     }
     render() {
         draw_system(this.world)

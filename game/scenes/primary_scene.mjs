@@ -13,10 +13,10 @@ import weapon_system from '../systems/logic/weapon_system.mjs'
 
 class PrimaryScene{
     constructor(){
-        this.world
     }
     init(){
         this.world = createWorld()
+        this.world.frame = 0
         //add a test entity
         test_square(this.world)
         let some_player_id = player(this.world)
@@ -30,6 +30,7 @@ class PrimaryScene{
         movement_system(this.world)
         out_of_bounds_system(this.world)
         animation_system(this.world)
+        this.world.frame++
     }
     render(){
         draw_system(this.world)

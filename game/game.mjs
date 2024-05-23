@@ -1,6 +1,4 @@
-import SceneManager from '../PeerlessEngine/managers/SceneManager.mjs'
-import CanvasManager from '../PeerlessEngine/managers/CanvasManager.mjs'
-import {Game} from '../PeerlessEngine/main.mjs'
+import {Game,SceneManager,CanvasManager} from '../PeerlessEngine/main.mjs'
 
 import main_menu_scene from './scenes/main_menu_scene.mjs'
 import primary_scene from './scenes/primary_scene.mjs'

@@ -6,12 +6,13 @@ import create_rect from '../entity_factories/UI/create_rect.mjs'
 import create_button from '../entity_factories/UI/create_button.mjs'
 import create_mouse_cursor from '../entity_factories/create_mouse_cursor.mjs'
 import { EVENTS, SCENES } from '../constants.mjs'
-import {controller_system,mouse_system,debug_text_system,node_system,clickable_system,EventManager,SceneManager} from '../../PeerlessEngine/main.mjs'
+import {Scene, controller_system,mouse_system,debug_text_system,node_system,clickable_system,EventManager,SceneManager} from '../../PeerlessEngine/main.mjs'
 import draw_system from '../systems/render/draw_system.mjs'
 import { add_parent } from '../../PeerlessEngine/utilities/node_helpers.mjs'
 
-class MainMenuScene {
+class MainMenuScene extends Scene{
     constructor() {
+        super()
     }
     init() {
         this.world = createWorld()
@@ -53,6 +54,11 @@ class MainMenuScene {
                 font_size:20
             }
         )
+        let multiplayer_button_handler = EventManager.on((event)=>{
+            if(event.eid == multiplayer_button_eid && event.type == EVENTS.EID_CLICKED){
+                SceneManager.set_scene(SCENES.LOBBY_LIST)
+            }
+        })
         add_parent(this.world,multiplayer_button_eid,singleplayer_button_eid)
     }
     update() {

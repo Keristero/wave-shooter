@@ -21,12 +21,12 @@ const system = world => {
                 let {speed} = VarietyManager.get(Variety.vid[bullet_eid])
                 let radians = radians_between_vector2ds(Position.x[eid],Position.y[eid],InputMouseCursor.x[eid],InputMouseCursor.y[eid])
                 //random spread
-                radians = radians += (-0.5+Math.random())
+                radians = radians 
                 Rotation.radians[bullet_eid] = radians
                 Position.x[bullet_eid] = Position.x[eid]
                 Position.y[bullet_eid] = Position.y[eid]
-                Velocity.x[bullet_eid] = Math.cos(radians)*speed
-                Velocity.y[bullet_eid] = Math.sin(radians)*speed
+                Velocity.x[bullet_eid] = Math.cos(radians)*0.5
+                Velocity.y[bullet_eid] = Math.sin(radians)*0.5
             }
         }
     }

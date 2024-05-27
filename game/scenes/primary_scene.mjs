@@ -6,13 +6,14 @@ import test_square from '../entity_factories/create_test_square.mjs'
 import player from '../entity_factories/create_player.mjs'
 import { Position } from '../../PeerlessEngine/components/components.mjs'
 import out_of_bounds_system from '../systems/logic/out_of_bounds_system.mjs'
-import {debug_text_system,animation_system,mouse_system,controller_system} from '../../PeerlessEngine/main.mjs'
+import {Scene, debug_text_system,animation_system,mouse_system,controller_system} from '../../PeerlessEngine/main.mjs'
 import draw_system from '../systems/render/draw_system.mjs'
 import movement_system from '../systems/logic/movement_system.mjs'
 import weapon_system from '../systems/logic/weapon_system.mjs'
 
-class PrimaryScene{
+class PrimaryScene extends Scene{
     constructor(){
+        super()
     }
     init(){
         this.world = createWorld()

@@ -1,16 +1,16 @@
 import {
     defineQuery,Not
 } from '../../../PeerlessEngine/kerenginebitecs.mjs'
-import { Position,RGBColor, Velocity ,Interpolate,Sprite, Animation, Rectangle,Text} from '../../../PeerlessEngine/components/components.mjs'
+import { Position,RGBColor, Velocity ,Interpolate,Sprite, Animation, Rectangle,Text,Hidden} from '../../../PeerlessEngine/components/components.mjs'
 import {CanvasManager,ResourceManager,PerformanceManager,ReferenceTypeManager} from '../../../PeerlessEngine/main.mjs'
 import {canvas_alias_game} from '../../constants.mjs'
 //const drawQuery = defineQuery([Position])
 
-const draw_query = defineQuery([Not(Interpolate),Position,RGBColor,Rectangle])
-const interpolated_draw_query = defineQuery([Interpolate,Position,Velocity,RGBColor,Rectangle])
-const interpolated_draw_query_sprites = defineQuery([Interpolate,Position,Velocity,Sprite,Animation])
+const draw_query = defineQuery([Not(Interpolate),Not(Hidden),Position,RGBColor,Rectangle])
+const interpolated_draw_query = defineQuery([Not(Hidden),Interpolate,Position,Velocity,RGBColor,Rectangle])
+const interpolated_draw_query_sprites = defineQuery([Not(Hidden),Interpolate,Position,Velocity,Sprite,Animation])
 
-const text_query = defineQuery([Position,Text,Rectangle])
+const text_query = defineQuery([Not(Hidden),Position,Text,Rectangle])
 
 const system = world => {
     let canvas = CanvasManager.get_by_alias(canvas_alias_game)

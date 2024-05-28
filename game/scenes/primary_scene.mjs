@@ -24,6 +24,9 @@ class PrimaryScene extends Scene{
         Position.x[some_player_id] = Math.random()*500
         Position.y[some_player_id] = Math.random()*500
     }
+    scene_activated(activate_parameters){
+        console.log('here we are with',activate_parameters)
+    }
     update(){
         mouse_system(this.world)
         controller_system(this.world)

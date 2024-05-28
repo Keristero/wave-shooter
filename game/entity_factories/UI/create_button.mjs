@@ -2,7 +2,7 @@ import {
     addEntity,
     addComponent,
 } from '../../../PeerlessEngine/kerenginebitecs.mjs'
-import {Position,RGBColor,Rectangle,Node,RelativePosition,Text,Clickable} from '../../../PeerlessEngine/components/components.mjs'
+import {Position,RGBColor,Rectangle,Node,RelativePosition,Text,Clickable,Hidden} from '../../../PeerlessEngine/components/components.mjs'
 import {ReferenceTypeManager} from '../../../PeerlessEngine/main.mjs'
 
 function create_entity(world,props){
@@ -25,6 +25,9 @@ function create_entity(world,props){
     Text.ctid[eid] = ReferenceTypeManager.add(text)
     Text.font_size[eid] = font_size
     addComponent(world, Clickable, eid)
+    if(props.hidden){
+        addComponent(world, Hidden, eid)
+    }
     return eid
 }
 

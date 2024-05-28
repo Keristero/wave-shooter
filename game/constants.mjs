@@ -11,7 +11,7 @@ export const NETWORK = {
 export const SCENES = {
     MAIN_MENU:0,
     GAME:1,
-    LOBBY_LIST:2
+    LOBBY_LIST:2,
 }
 
 export const EVENTS = {

@@ -2,7 +2,7 @@ import {
     addEntity,
     addComponent,
 } from '../../PeerlessEngine/kerenginebitecs.mjs'
-import {Position,Velocity,RGBColor} from '../../../PeerlessEngine/components/components.mjs'
+import {Position,Velocity,RGBColor} from '../../PeerlessEngine/components/components.mjs'
 
 function create_entity(world){
     //add a test entity

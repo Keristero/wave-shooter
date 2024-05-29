@@ -6,8 +6,8 @@ import {Position,Velocity,RGBColor, Interpolate,Sprite,Rotation,Animation,Animat
 import {ResourceManager,VarietyManager} from '../../PeerlessEngine/main.mjs'
 import RNG from '../../PeerlessEngine/utilities/RNG.mjs'
 
-const bullet_animation_rid = await ResourceManager.load('../resources/sprites/orb.animation')
-const bullet_image_rid = await ResourceManager.load('../resources/sprites/orb.png')
+const bullet_animation_rid = await ResourceManager.load('../../game/resources/sprites/orb.animation')
+const bullet_image_rid = await ResourceManager.load('../../game/resources/sprites/orb.png')
 
 let normal_bullet_vid = VarietyManager.add({
     speed:1

@@ -2,7 +2,7 @@ import {
     addEntity,
     addComponent,
 } from '../../PeerlessEngine/kerenginebitecs.mjs'
-import {Position,Velocity,RGBColor,InputAnalog, InputMouseCursor,Interpolate, Rectangle} from '../../../PeerlessEngine/components/components.mjs'
+import {Position,Velocity,RGBColor,InputAnalog, InputMouseCursor,Interpolate, Rectangle} from '../../PeerlessEngine/components/components.mjs'
 import {Gun} from '../components/components.mjs'
 
 function create_entity(world){

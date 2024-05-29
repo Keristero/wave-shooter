@@ -2,7 +2,7 @@ import {
     addEntity,
     addComponent,
 } from '../../PeerlessEngine/kerenginebitecs.mjs'
-import {Position,Velocity,RGBColor, Interpolate,Sprite,Rotation,Animation,Animated, Variety} from '../../../PeerlessEngine/components/components.mjs'
+import {Position,Velocity,RGBColor, Interpolate,Sprite,Rotation,Animation,Animated, Variety} from '../../PeerlessEngine/components/components.mjs'
 import {ResourceManager,VarietyManager} from '../../PeerlessEngine/main.mjs'
 import RNG from '../../PeerlessEngine/utilities/RNG.mjs'
 

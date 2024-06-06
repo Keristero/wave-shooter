@@ -14,6 +14,7 @@ import {EVENTS} from '../../PeerlessEngine/engine_constants.mjs'
 import {Scene, controller_system,mouse_system,debug_text_system,node_system,clickable_system,EventManager,SceneManager,NetworkManager} from '../../PeerlessEngine/main.mjs'
 import draw_system from '../systems/render/draw_system.mjs'
 import { add_parent } from '../../PeerlessEngine/utilities/node_helpers.mjs'
+import TrysteroManager from '../../PeerlessEngine/managers/TrysteroManager.mjs'
 
 class LobbyListScene extends Scene{
     constructor() {
@@ -29,7 +30,7 @@ class LobbyListScene extends Scene{
             name:lobby_name,
             room_id:this.generate_lobby_id(12),
             started:false,
-            players:1
+            players:1,
         }
         NetworkManager.send_state(NETWORK.LOBBY_ROOM_NAME,this.local_state)
         this.join_lobby(this.local_state.lobby)
@@ -113,7 +114,7 @@ class LobbyListScene extends Scene{
         this.local_state = {}
         NetworkManager.send_state(NETWORK.LOBBY_ROOM_NAME,this.local_state)
     }
-    join_lobby(lobby_details){
+    async join_lobby(lobby_details){
         if(this.local_state?.lobby?.room_id != lobby_details.room_id){
             //if we join a different lobby while hosting one, close ours
             this.close_lobby()
@@ -123,7 +124,7 @@ class LobbyListScene extends Scene{
             this.leave_lobby(this.joined_lobby_details)
         }
         console.log(`attempting to join lobby`,lobby_details)
-        NetworkManager.join_room(NETWORK.CONFIG,lobby_details.room_id)
+        await NetworkManager.join_room(NETWORK.CONFIG,lobby_details.room_id)
         this.joined_lobby_details = lobby_details
         if(this.i_am_host()){
             console.log('i am host supreme')
@@ -171,6 +172,7 @@ class LobbyListScene extends Scene{
         //network
         this.peer_joined_listener = EventManager.on((event)=>{
             if(event.type == EVENTS.EID_NETWORK_PEER_JOINED){
+                //when a peer joins a room
                 if(event.room_name == NETWORK.LOBBY_ROOM_NAME){
                     console.log('peer joined lobby list')
                     NetworkManager.send_state_to_peer(NETWORK.LOBBY_ROOM_NAME,event.peer_id,this.local_state)
@@ -185,6 +187,7 @@ class LobbyListScene extends Scene{
         })
         this.peer_left_listener = EventManager.on((event)=>{
             if(event.type == EVENTS.EID_NETWORK_PEER_LEFT){
+                //when a peer leaves a room
                 if(event.room_name == NETWORK.LOBBY_ROOM_NAME){
                     console.log('peer left lobby list')
                     delete this.peer_states[event.peer_id]
@@ -199,13 +202,21 @@ class LobbyListScene extends Scene{
         })
         this.peer_remote_state_listener = EventManager.on((event)=>{
             if(event.type == EVENTS.EID_NETWORK_REMOTE_STATE){
-                console.log(event)
+                //when a peer joins a room
+                console.log('remote state event',event)
                 if(event.room_name == NETWORK.LOBBY_ROOM_NAME){
-                    console.log('peer state!',event.state)
-                    this.peer_states[event.peer_id] = event.state
-                    this.refresh_lobby_buttons()
+                    //if state update contains a lobby
+                    if(event?.state?.lobby){
+                        if(this?.joined_lobby_details?.room_id == event?.state?.lobby?.room_id){
+                            this.joined_lobby_details = event.state.lobby
+                        }
+                        this.peer_states[event.peer_id] = event.state
+                        this.refresh_lobby_buttons()
+                    }
                 }else if(event.room_name == this.joined_lobby_details?.room_id){
-                    this.start_game()
+                    if(event.state == "start"){
+                        this.start_game()
+                    }
                 }
             }
         })
